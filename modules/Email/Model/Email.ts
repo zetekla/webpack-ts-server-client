@@ -6,7 +6,7 @@ let Schema = mongoose.Schema;
  * Schema
  */
 
-let Schema1 = new Schema({
+let Email = new Schema({
     Subject: { type: String, trim: true },
     Body: { type: String, trim: true },
     ToRecipients: [],
@@ -18,11 +18,14 @@ let Schema1 = new Schema({
         } // https://alexanderzeitler.com/articles/mongoose-referencing-schema-in-properties-and-arrays/*/
     },
     SentDate: Date
+    // recipientGroups: []
+    // system flags: *spammed*, *ads*, *junked*, *important*, *priority*
+    // user preferences, custom folders and flags are saved with User model as they should be binding to the User
 });
 
-let Schema2 = new Schema({
-    EmailSet: [Schema1]
+let EmailSet = new Schema({
+    EmailSet: [Email._id]
 });
 
-mongoose.model('Email', Schema1);
-mongoose.model('EmailSet', Schema2); // EmailSet contains original message and multiple replies.
+mongoose.model('Email', Email);
+mongoose.model('EmailSet', EmailSet); // EmailSet contains original message and multiple replies.
