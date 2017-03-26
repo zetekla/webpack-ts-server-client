@@ -1,6 +1,9 @@
 import mongoose from 'mongoose';
 
-let Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
+
+const User = mongoose.model('User').schema;
+const Comment = mongoose.model('Comment').schema;
 
 /**
  * Schema
@@ -11,21 +14,27 @@ let Email = new Schema({
     Body: { type: String, trim: true },
     ToRecipients: [],
     Sender: {
-        Email: { type: String, trim: true, required: true },
+        Id: User._id,
+        Email: User.Email,
+        Name: User.Name,
+        FullName: User.FullName,
+        Title: User.Title
        /* PostedBy: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         } // https://alexanderzeitler.com/articles/mongoose-referencing-schema-in-properties-and-arrays/*/
     },
-    SentDate: Date
+    SentDate: Date,
+    Comments: [Comment]
     // recipientGroups: []
     // system flags: *spammed*, *ads*, *junked*, *important*, *priority*
     // user preferences, custom folders and flags are saved with User model as they should be binding to the User
 });
 
 let EmailSet = new Schema({
+    UserId: User._id,
     EmailSet: [Email._id]
 });
 
 mongoose.model('Email', Email);
-mongoose.model('EmailSet', EmailSet); // EmailSet contains original message and multiple replies.
+mongoose.model('EmailSet', EmailSet); // EmailSet is similar to inbox.

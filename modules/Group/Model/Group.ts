@@ -1,8 +1,11 @@
 import mongoose from 'mongoose';
 
-let Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 // import User from '../../User/Model/User';
+
+const User = mongoose.model('User').schema;
+
 /**
  * Schema
  */
@@ -10,7 +13,7 @@ let Schema = mongoose.Schema;
 let Schema1 = new Schema({
     Name: { type: String, trim: true, unique: true, required: true },
     Description: { type: String, trim: true }, // describe what this group is for
-    Role: { type: Integer, required: true},
+    Role: { type: Number, required: true},
     Users: [User._id] // Ids of group participants
 });
 
