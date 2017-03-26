@@ -1,15 +1,16 @@
-var debug = process.env.NODE_ENV !== "production";
+const nodeEnv = process.env.NODE_ENV || 'development';
+const isProd = nodeEnv === 'production';
 var webpack = require('webpack');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var HtmlWebpackObj = {
   title: 'custom site',
-  template: './modules/App/index.html'
+  template: '!!ejs-loader!./modules/App/index.html'
 };
 
 module.exports = {
   context: __dirname,
-  devtool: debug ? 'inline-sourcemap' : null,
+  devtool: isProd ? 'hidden-source-map' : 'cheap-eval-source-map',
   entry: './Server/main.js',
   target: 'node',
   output: {
@@ -32,12 +33,21 @@ module.exports = {
           presets: ['es2015', 'react']
         }
       }
-    ]
+    ],
+    rules: [{
+      test: /\.html$/,
+      use: [ {
+        loader: 'html-loader',
+        options: {
+          minimize: true
+        }
+      }]
+    }]
   },
   resolve: {
     extensions: ['.js', '.jsx', '.es6', '.json', '.coffee']
   },
-  plugins: debug ? [new HtmlWebpackPlugin(HtmlWebpackObj)] : [
+  plugins: !isProd ? [new HtmlWebpackPlugin(HtmlWebpackObj)] : [
     new HtmlWebpackPlugin(HtmlWebpackObj),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
