@@ -5,7 +5,13 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackObj = {
   title: 'custom site',
-  template: './index.html'
+  template: './index.html',
+  minify: {
+    html5 : true,
+    minimize: true,
+    removeComments: true,
+    collapseWhitespace: true
+  }
 };
 
 module.exports = {
@@ -44,16 +50,8 @@ module.exports = {
       { enforce: 'pre', test: /\.ts$/, exclude: ["node_modules"], loader: 'ts-loader' },
       {
         test: /\.html$/,
-        use: [ {
+        use: [{
           loader: 'ejs-loader'
-        },
-        {
-          loader: 'html-loader',
-          options: {
-            minimize: true,
-            removeComments: true,
-            collapseWhitespace: true
-          }
         }]
       },
       { test: /\.css$/, loaders: ['style', 'css'] },
