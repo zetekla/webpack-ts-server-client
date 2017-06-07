@@ -20,8 +20,7 @@ module.exports = {
   devtool: isProd ? 'hidden-source-map' : 'cheap-eval-source-map',
   entry: {
     app: './main.ts',
-    vendor: './vendor.ts',
-    "func.spec": 'func.spec.js'
+    vendor: './vendor.ts'
   },
   // target: 'node',
   output: {
@@ -49,11 +48,9 @@ module.exports = {
         }
       }
     ],*/
-    loaders: [
-      { test: /\.(test|spec|es5|es6)\.(js|bundle\.js)/ig, loader: "file" }
-    ],
     rules: [
       { enforce: 'pre', test: /\.ts$/, exclude: ["node_modules"], loader: 'ts-loader' },
+      { test: /\.(test|spec|es5|es6)\.(js|bundle\.js)$/, loaders: "file-loader" },
       {
         test: /\.html$/,
         use: [{
