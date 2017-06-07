@@ -50,7 +50,7 @@ module.exports = {
       }
     ],*/
     loaders: [
-      { test: /\.(test|spec|es5|es6)\.(js|bundle\.js)$/, loader: "file" }
+      { test: /\.(test|spec|es5|es6)\.(js|bundle\.js)/ig, loader: "file" }
     ],
     rules: [
       { enforce: 'pre', test: /\.ts$/, exclude: ["node_modules"], loader: 'ts-loader' },

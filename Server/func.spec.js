@@ -1,1 +1,4 @@
-console.log('FUNC.SPEC');
+export default function(){
+  console.log('FUNC.SPEC');
+  return;
+}
