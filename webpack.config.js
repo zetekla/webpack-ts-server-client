@@ -50,7 +50,7 @@ module.exports = {
       }
     ],*/
     loaders: [
-      { test: /(?:\.spec|\.test|\.es5|\.es6|)\.(jpg|jpe?g|gif|png|svg|woff|ttf|wav|mp3)$/, loader: "file" }
+      { test: /\.(test|spec|es5|es6)\.(js|bundle\.js)$/, loader: "file" }
     ],
     rules: [
       { enforce: 'pre', test: /\.ts$/, exclude: ["node_modules"], loader: 'ts-loader' },
@@ -96,7 +96,7 @@ module.exports = {
       output: { comments: false },
       beautify: true,
       sourceMap: false,
-      exclude: /(?:\.test|\.spec|\.es5|\.es6)(?:\.js|\.bundle.js)/ig
+      exclude: /\.(test|spec|es5|es6)\.(js|bundle\.js)/ig
     }),
     new webpack.LoaderOptionsPlugin({
       options: {
