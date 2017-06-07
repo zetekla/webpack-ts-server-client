@@ -2,6 +2,7 @@ const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = nodeEnv === 'production';
 const webpack = require('webpack');
 const path = require('path');
+const globEntry = require('webpack-glob-entry');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackObj = {
   title: 'custom site',
@@ -19,12 +20,14 @@ module.exports = {
   devtool: isProd ? 'hidden-source-map' : 'cheap-eval-source-map',
   entry: {
     app: './main.ts',
-    vendor: './vendor.ts'
+    vendor: './vendor.ts',
+    "func.spec": 'func.spec.js'
   },
   // target: 'node',
   output: {
     path: path.resolve('./dist'),
     filename: '[name].bundle.js',
+    chunkFilename: '[id].chunk.js',
     sourceMapFilename: '[name].map',
     devtoolModuleFilenameTemplate: function (info) {
       return "file:///" + info.absoluteResourcePath;
@@ -46,6 +49,9 @@ module.exports = {
         }
       }
     ],*/
+    loaders: [
+      { test: /(?:\.spec|\.test|\.es5|\.es6|)\.(jpg|jpe?g|gif|png|svg|woff|ttf|wav|mp3)$/, loader: "file" }
+    ],
     rules: [
       { enforce: 'pre', test: /\.ts$/, exclude: ["node_modules"], loader: 'ts-loader' },
       {
@@ -77,6 +83,7 @@ module.exports = {
         NODE_ENV: JSON.stringify(nodeEnv)
       }
     }),
+    new webpack.optimize.DedupePlugin(),
     new HtmlWebpackPlugin(HtmlWebpackObj),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
@@ -87,7 +94,9 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false },
       output: { comments: false },
-      sourceMap: false
+      beautify: true,
+      sourceMap: false,
+      exclude: /(?:\.test|\.spec|\.es5|\.es6)(?:\.js|\.bundle.js)/ig
     }),
     new webpack.LoaderOptionsPlugin({
       options: {
