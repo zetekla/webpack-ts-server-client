@@ -31,10 +31,10 @@ let Email = new Schema({
     // user preferences, custom folders and flags are saved with User model as they should be binding to the User
 });
 
+mongoose.model('Email', Email);
+
 let EmailSet = new Schema({
     UserId: User._id,
     EmailSet: [Email._id]
 });
-
-mongoose.model('Email', Email);
 mongoose.model('EmailSet', EmailSet); // EmailSet is similar to inbox.

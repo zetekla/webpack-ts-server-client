@@ -34,7 +34,6 @@ let Schema1 = new Schema({
     },
     Location: { type: String, trim: true }, // geolocation, IP
     Groups: [Group._id], // Ids of group participants
-    Description: { type: String, trim: true }, // describe what this group is for
     Preference: [],
     LastSeenDate: Date,
     Activated: Boolean,
