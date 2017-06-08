@@ -50,7 +50,7 @@ module.exports = {
     ],*/
     rules: [
       { enforce: 'pre', test: /\.ts$/, exclude: ["node_modules"], loader: 'ts-loader' },
-      { test: /\.(test|spec|es5|es6)\.(js|bundle\.js)$/, loaders: "file-loader",
+      { test: /\.(test|spec|es5|es6)\.(js|bundle\.js)/gi, loaders: "file-loader",
         options: {
           name: './[name].[ext]'
         }
@@ -97,7 +97,7 @@ module.exports = {
       output: { comments: false },
       beautify: true,
       sourceMap: false,
-      exclude: /\.(test|spec|es5|es6)\.(js|bundle\.js)/ig
+      exclude: /\.(test|spec|es5|es6)\.(js|bundle\.js)/gi
     }),
     new webpack.LoaderOptionsPlugin({
       options: {
