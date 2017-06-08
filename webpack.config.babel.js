@@ -15,7 +15,7 @@ const HtmlWebpackObj = {
   }
 };
 
-module.exports = {
+export default {
   context: path.resolve('./Server'),
   devtool: isProd ? 'hidden-source-map' : 'cheap-eval-source-map',
   entry: {
@@ -50,11 +50,6 @@ module.exports = {
     ],*/
     rules: [
       { enforce: 'pre', test: /\.ts$/, exclude: ["node_modules"], loader: 'ts-loader' },
-      { test: /\.(test|spec|es5|es6)\.(js|bundle\.js)/gi, loaders: "file-loader",
-        options: {
-          name: './[name].[ext]'
-        }
-      },
       {
         test: /\.html$/,
         use: [{
