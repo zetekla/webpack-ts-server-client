@@ -1,9 +1,9 @@
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = nodeEnv === 'production';
-const webpack = require('webpack');
-const path = require('path');
-const globEntry = require('webpack-glob-entry');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import webpack from 'webpack';
+import path from 'path';
+import globEntry from 'webpack-glob-entry';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 const HtmlWebpackObj = {
   title: 'custom site',
   template: './index.html',
